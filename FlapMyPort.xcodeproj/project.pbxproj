@@ -11,7 +11,13 @@
 		F52561961D58A43900266535 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F52561951D58A43900266535 /* main.m */; };
 		F52561991D58A43900266535 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52561981D58A43900266535 /* ViewController.m */; };
 		F525619B1D58A43900266535 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F525619A1D58A43900266535 /* Assets.xcassets */; };
-		F525619E1D58A43900266535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F525619C1D58A43900266535 /* Main.storyboard */; };
+		F52561A61D58A4BD00266535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F52561A51D58A4BD00266535 /* Main.storyboard */; };
+		F52561B51D58A52200266535 /* ChartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F52561AE1D58A52200266535 /* ChartCell.m */; };
+		F52561B61D58A52200266535 /* CheckBoxTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F52561B01D58A52200266535 /* CheckBoxTableCell.m */; };
+		F52561B71D58A52200266535 /* FlapTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52561B21D58A52200266535 /* FlapTableViewController.m */; };
+		F52561B81D58A52200266535 /* PrefController.m in Sources */ = {isa = PBXBuildFile; fileRef = F52561B41D58A52200266535 /* PrefController.m */; };
+		F5E1FAE01D58AF4100F86822 /* URLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E1FADF1D58AF4100F86822 /* URLManager.m */; };
+		F5E1FAE21D58FE0200F86822 /* linkdown.aif in Resources */ = {isa = PBXBuildFile; fileRef = F5E1FAE11D58F37D00F86822 /* linkdown.aif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +28,19 @@
 		F52561971D58A43900266535 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F52561981D58A43900266535 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F525619A1D58A43900266535 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F525619D1D58A43900266535 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F525619F1D58A43900266535 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F52561A51D58A4BD00266535 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		F52561AD1D58A52200266535 /* ChartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartCell.h; sourceTree = "<group>"; };
+		F52561AE1D58A52200266535 /* ChartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartCell.m; sourceTree = "<group>"; };
+		F52561AF1D58A52200266535 /* CheckBoxTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckBoxTableCell.h; sourceTree = "<group>"; };
+		F52561B01D58A52200266535 /* CheckBoxTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckBoxTableCell.m; sourceTree = "<group>"; };
+		F52561B11D58A52200266535 /* FlapTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlapTableViewController.h; sourceTree = "<group>"; };
+		F52561B21D58A52200266535 /* FlapTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlapTableViewController.m; sourceTree = "<group>"; };
+		F52561B31D58A52200266535 /* PrefController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefController.h; sourceTree = "<group>"; };
+		F52561B41D58A52200266535 /* PrefController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefController.m; sourceTree = "<group>"; };
+		F5E1FADE1D58AF4100F86822 /* URLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLManager.h; sourceTree = "<group>"; };
+		F5E1FADF1D58AF4100F86822 /* URLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLManager.m; sourceTree = "<group>"; };
+		F5E1FAE11D58F37D00F86822 /* linkdown.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = linkdown.aif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +77,11 @@
 				F52561921D58A43900266535 /* AppDelegate.m */,
 				F52561971D58A43900266535 /* ViewController.h */,
 				F52561981D58A43900266535 /* ViewController.m */,
+				F52561AC1D58A51200266535 /* Managers */,
+				F52561AA1D58A4E500266535 /* Flaps */,
+				F52561A51D58A4BD00266535 /* Main.storyboard */,
+				F5E1FAE11D58F37D00F86822 /* linkdown.aif */,
 				F525619A1D58A43900266535 /* Assets.xcassets */,
-				F525619C1D58A43900266535 /* Main.storyboard */,
 				F525619F1D58A43900266535 /* Info.plist */,
 				F52561941D58A43900266535 /* Supporting Files */,
 			);
@@ -74,6 +94,30 @@
 				F52561951D58A43900266535 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F52561AA1D58A4E500266535 /* Flaps */ = {
+			isa = PBXGroup;
+			children = (
+				F52561AD1D58A52200266535 /* ChartCell.h */,
+				F52561AE1D58A52200266535 /* ChartCell.m */,
+				F52561AF1D58A52200266535 /* CheckBoxTableCell.h */,
+				F52561B01D58A52200266535 /* CheckBoxTableCell.m */,
+				F52561B11D58A52200266535 /* FlapTableViewController.h */,
+				F52561B21D58A52200266535 /* FlapTableViewController.m */,
+				F52561B31D58A52200266535 /* PrefController.h */,
+				F52561B41D58A52200266535 /* PrefController.m */,
+			);
+			name = Flaps;
+			sourceTree = "<group>";
+		};
+		F52561AC1D58A51200266535 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F5E1FADE1D58AF4100F86822 /* URLManager.h */,
+				F5E1FADF1D58AF4100F86822 /* URLManager.m */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,8 +177,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E1FAE21D58FE0200F86822 /* linkdown.aif in Resources */,
 				F525619B1D58A43900266535 /* Assets.xcassets in Resources */,
-				F525619E1D58A43900266535 /* Main.storyboard in Resources */,
+				F52561A61D58A4BD00266535 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,22 +192,16 @@
 			files = (
 				F52561991D58A43900266535 /* ViewController.m in Sources */,
 				F52561961D58A43900266535 /* main.m in Sources */,
+				F52561B51D58A52200266535 /* ChartCell.m in Sources */,
+				F52561B71D58A52200266535 /* FlapTableViewController.m in Sources */,
+				F52561B81D58A52200266535 /* PrefController.m in Sources */,
+				F52561B61D58A52200266535 /* CheckBoxTableCell.m in Sources */,
+				F5E1FAE01D58AF4100F86822 /* URLManager.m in Sources */,
 				F52561931D58A43900266535 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F525619C1D58A43900266535 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F525619D1D58A43900266535 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F52561A01D58A43900266535 /* Debug */ = {
@@ -253,7 +292,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = FlapMyPort/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.tablespoon.FlapMyPort;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.tablespoon.FlapMyPortMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -265,7 +304,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = FlapMyPort/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ru.tablespoon.FlapMyPort;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.tablespoon.FlapMyPortMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -289,6 +328,7 @@
 				F52561A41D58A43900266535 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
