@@ -22,4 +22,29 @@
     // Insert code here to tear down your application
 }
 
+- (BOOL) applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag
+{
+    /*
+    if ( visibleWindows )
+    {
+        [self.window orderFront:self];
+    }
+    else {
+        [self.window makeKeyAndOrderFront:self];
+    }
+    */
+
+    NSLog(@"%hhd", flag);
+
+    for (NSWindow *Window in sender.windows)
+    {
+        if(!flag)
+        {
+            [Window makeKeyAndOrderFront:self];
+        }
+    }
+    
+    return YES;
+}
+
 @end

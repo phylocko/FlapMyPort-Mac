@@ -44,6 +44,8 @@
             [config setObject:self.urlField.stringValue forKey:@"ApiUrl"];
             
             self.statusLabel.stringValue= @"✅";
+            self.statusLabel.hidden = NO;
+
             self.helperText.stringValue = @"This url is a correct url! Stored to config.";
             [self enableControls];
             return;
@@ -53,13 +55,17 @@
    
     self.helperText.stringValue = @"Couldn't find API response. Check the URL or your credentials if needed.";
     self.statusLabel.stringValue= @"❗️";
+    self.statusLabel.hidden = NO;
 
     [self enableControls];
 }
 - (void) connectionError: (NSError *) error
 {
     self.helperText.stringValue = @"Couldn't find API response. Check the URL or your credentials if needed.";
+
     self.statusLabel.stringValue= @"❗️";
+    self.statusLabel.hidden = NO;
+
     [self enableControls];
 }
 
@@ -88,11 +94,18 @@
 {
     self.applyButton.enabled = NO;
     self.cancelButton.enabled = NO;
+    self.statusLabel.hidden = YES;
+    
+    self.progressIndicator.hidden = NO;
+    [self.progressIndicator startAnimation:0];
 }
 - (void) enableControls
 {
     self.applyButton.enabled = YES;
     self.cancelButton.enabled = YES;
+    
+    [self.progressIndicator stopAnimation:0];
+    self.progressIndicator.hidden = YES;
 }
 
 - (IBAction)CancelClick:(id)sender {

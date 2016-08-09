@@ -158,7 +158,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <box horizontalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="N3o-bL-EXr">
-                                            <rect key="frame" x="215" y="12" width="4" height="73"/>
+                                            <rect key="frame" x="215" y="12" width="5" height="73"/>
                                         </box>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qdn-r5-uFN">
                                             <rect key="frame" x="226" y="27" width="193" height="42"/>
@@ -186,7 +186,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FKS-kt-A4g">
+                                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FKS-kt-A4g">
                                             <rect key="frame" x="416" y="38" width="20" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="RXL-ju-oFf">
                                                 <font key="font" metaFont="system"/>
@@ -202,6 +202,9 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="HF2-aK-AgU">
+                                            <rect key="frame" x="417" y="39" width="16" height="16"/>
+                                        </progressIndicator>
                                     </subviews>
                                 </view>
                                 <font key="titleFont" metaFont="systemBold"/>
@@ -240,6 +243,7 @@ DQ
                         <outlet property="helperText" destination="8vK-cV-TZo" id="pyq-y8-TaC"/>
                         <outlet property="loginField" destination="z3W-bs-nDG" id="Fgf-Js-5Ai"/>
                         <outlet property="passwordField" destination="Auj-Xl-nrx" id="WwA-Vp-ImV"/>
+                        <outlet property="progressIndicator" destination="HF2-aK-AgU" id="mgz-Vp-yqt"/>
                         <outlet property="statusLabel" destination="FKS-kt-A4g" id="HdE-RN-bwG"/>
                         <outlet property="urlField" destination="E04-Ud-XRn" id="DR4-Ir-9bP"/>
                     </connections>
@@ -254,7 +258,7 @@ DQ
                 <customObject id="2AS-wg-BOP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController id="IbU-AC-3XV" sceneMemberID="viewController">
                     <window key="window" title="FlapMyPort OSX" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="aoR-pv-bbu">
-                        <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
                         <rect key="contentRect" x="647" y="543" width="1371" height="300"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
                         <value key="minSize" type="size" width="980" height="300"/>
@@ -293,7 +297,7 @@ DQ
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="De4-vH-ZeT">
-                                <rect key="frame" x="323" y="412" width="96" height="22"/>
+                                <rect key="frame" x="318" y="412" width="96" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="ybN-wN-1pV"/>
                                 </constraints>
@@ -303,18 +307,8 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="huH-6a-q4w">
-                                <rect key="frame" x="426" y="414" width="58" height="18"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="lWY-ib-O4C"/>
-                                </constraints>
-                                <buttonCell key="cell" type="check" title="Down" bezelStyle="regularSquare" imagePosition="left" alignment="left" refusesFirstResponder="YES" inset="2" id="A8h-CF-kV6">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qZf-d2-fhF">
-                                <rect key="frame" x="8" y="6" width="39" height="14"/>
+                                <rect key="frame" x="28" y="6" width="39" height="14"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0 rows" id="xRS-od-ZI4">
                                     <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="knobColor" catalog="System" colorSpace="catalog"/>
@@ -322,7 +316,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RHs-zE-CNA">
-                                <rect key="frame" x="502" y="412" width="158" height="27"/>
+                                <rect key="frame" x="417" y="412" width="158" height="27"/>
                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" id="TF4-BE-neH">
                                     <font key="font" metaFont="system"/>
                                     <date key="date" timeIntervalSinceReferenceDate="378687600">
@@ -337,7 +331,7 @@ DQ
                                 </datePickerCell>
                             </datePicker>
                             <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5E-au-icx">
-                                <rect key="frame" x="663" y="412" width="158" height="27"/>
+                                <rect key="frame" x="578" y="412" width="158" height="27"/>
                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" id="upR-gc-fmJ">
                                     <font key="font" metaFont="system"/>
                                     <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
@@ -350,7 +344,7 @@ DQ
                                 </datePickerCell>
                             </datePicker>
                             <segmentedControl identifier="intervalPicker" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xkh-wM-lyL">
-                                <rect key="frame" x="17" y="411" width="301" height="24"/>
+                                <rect key="frame" x="12" y="411" width="301" height="24"/>
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="kWX-R4-AuW">
                                     <font key="font" metaFont="system"/>
                                     <segments>
@@ -657,26 +651,29 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
+                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="UEE-Qv-vVI">
+                                <rect key="frame" x="7" y="5" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="qZf-d2-fhF" secondAttribute="bottom" constant="6" id="2k3-Dw-5Cp"/>
                             <constraint firstItem="VlA-5k-sTU" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="8" id="3Mk-uC-lzE"/>
-                            <constraint firstItem="RHs-zE-CNA" firstAttribute="centerY" secondItem="huH-6a-q4w" secondAttribute="centerY" id="KJq-T1-FrG"/>
-                            <constraint firstItem="huH-6a-q4w" firstAttribute="leading" secondItem="De4-vH-ZeT" secondAttribute="trailing" constant="9" id="KeU-6q-IwF"/>
+                            <constraint firstItem="UEE-Qv-vVI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="7" id="Fuh-u5-HK5"/>
+                            <constraint firstItem="RHs-zE-CNA" firstAttribute="centerY" secondItem="De4-vH-ZeT" secondAttribute="centerY" id="I1B-1W-aWE"/>
                             <constraint firstAttribute="bottom" secondItem="L8t-kT-17l" secondAttribute="bottom" constant="26" id="Mcu-XL-niD"/>
-                            <constraint firstItem="xkh-wM-lyL" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="19" id="PAc-Ga-yD6"/>
+                            <constraint firstItem="xkh-wM-lyL" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="14" id="PAc-Ga-yD6"/>
+                            <constraint firstItem="P5E-au-icx" firstAttribute="leading" secondItem="RHs-zE-CNA" secondAttribute="trailing" constant="6" id="PIy-z9-V6R"/>
                             <constraint firstAttribute="trailing" secondItem="L8t-kT-17l" secondAttribute="trailing" id="QNf-tr-ZjM"/>
+                            <constraint firstAttribute="bottom" secondItem="UEE-Qv-vVI" secondAttribute="bottom" constant="5" id="QWR-Im-C6q"/>
                             <constraint firstItem="P5E-au-icx" firstAttribute="centerY" secondItem="RHs-zE-CNA" secondAttribute="centerY" id="QWv-5j-rcA"/>
                             <constraint firstItem="De4-vH-ZeT" firstAttribute="centerY" secondItem="xkh-wM-lyL" secondAttribute="centerY" id="RAX-oY-8U9"/>
-                            <constraint firstItem="P5E-au-icx" firstAttribute="leading" secondItem="RHs-zE-CNA" secondAttribute="trailing" constant="6" id="ROa-cn-U2p"/>
                             <constraint firstItem="De4-vH-ZeT" firstAttribute="leading" secondItem="xkh-wM-lyL" secondAttribute="trailing" constant="7" id="SvN-0Y-8eu"/>
-                            <constraint firstItem="RHs-zE-CNA" firstAttribute="leading" secondItem="huH-6a-q4w" secondAttribute="trailing" constant="20" id="VuQ-ON-zhf"/>
                             <constraint firstItem="L8t-kT-17l" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="XoL-GE-y7Z"/>
                             <constraint firstAttribute="trailing" secondItem="VlA-5k-sTU" secondAttribute="trailing" constant="20" id="dcK-uJ-0AC"/>
-                            <constraint firstItem="qZf-d2-fhF" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="10" id="iqw-Fk-i0x"/>
+                            <constraint firstItem="qZf-d2-fhF" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="30" id="iqw-Fk-i0x"/>
                             <constraint firstItem="L8t-kT-17l" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="51" id="mRW-a2-Ld4"/>
                             <constraint firstItem="xkh-wM-lyL" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="15" id="nWn-tX-jnr"/>
-                            <constraint firstItem="huH-6a-q4w" firstAttribute="centerY" secondItem="De4-vH-ZeT" secondAttribute="centerY" id="sAc-kM-kvw"/>
+                            <constraint firstItem="RHs-zE-CNA" firstAttribute="leading" secondItem="De4-vH-ZeT" secondAttribute="trailing" constant="3" id="tUI-y2-bjy"/>
                         </constraints>
                     </view>
                     <connections>
@@ -685,8 +682,8 @@ DQ
                         <outlet property="endDatePicker" destination="P5E-au-icx" id="rZn-qa-pcE"/>
                         <outlet property="filterField" destination="De4-vH-ZeT" id="OhO-Yd-sbZ"/>
                         <outlet property="modeSelector" destination="xkh-wM-lyL" id="P5V-4E-xIR"/>
+                        <outlet property="progressIndicator" destination="UEE-Qv-vVI" id="eZ0-ab-GXN"/>
                         <outlet property="showButton" destination="VlA-5k-sTU" id="Dlp-Fn-ppS"/>
-                        <outlet property="showOnlyDown" destination="huH-6a-q4w" id="RfG-iv-v9b"/>
                         <outlet property="startDatePicker" destination="RHs-zE-CNA" id="9Ix-ha-TtU"/>
                         <outlet property="tableView" destination="jDi-6u-Akv" id="j7V-er-n7a"/>
                     </connections>

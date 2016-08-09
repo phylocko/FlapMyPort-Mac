@@ -17,6 +17,7 @@
 @property (strong) IBOutlet NSButton *cancelButton;
 @property (weak) IBOutlet NSTextField *statusLabel;
 @property (weak) IBOutlet NSTextField *helperText;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
 
 - (IBAction)ApplyClick:(id)sender;
 - (IBAction)CancelClick:(id)sender;

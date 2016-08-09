@@ -16,7 +16,8 @@
 @property (weak) IBOutlet NSButton *showButton;
 // @property (strong, nonatomic) NSMutableData      *data;
 @property (weak) IBOutlet NSTextFieldCell *bottomLabel;
-@property (weak) IBOutlet NSButton *showOnlyDown;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+
 @property (weak) IBOutlet NSTextField *filterField;
 @property (strong, nonatomic) NSTimer   *refreshTimer;
 

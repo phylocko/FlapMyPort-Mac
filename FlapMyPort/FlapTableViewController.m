@@ -10,7 +10,7 @@
 #import "CheckBoxTableCell.h"
 #import "ChartCell.h"
 
-@interface FlapTableViewController () <URLManagerDelegate>
+@interface FlapTableViewController () <URLManagerDelegate, NSWindowDelegate>
 {
     NSMutableArray	*flapList;
     URLManager		*myConnection;
@@ -37,7 +37,11 @@
 
 @implementation FlapTableViewController
 
+
+
 - (void)viewDidLoad {
+    
+    [self.view.window setDelegate:self];
     
     oldestFlapID = 0;
     lastOldestFlapID = 0;
@@ -58,10 +62,6 @@
     
     flapList = [[NSMutableArray alloc] init];
     
-    //myConnection = [FlapManager sharedInstance];
-
-    //myConnection.delegate = self;
-    
     [self disableControls];
 
     myConnection = [URLManager sharedInstance];
@@ -81,22 +81,26 @@
 - (void) disableControls
 {
     self.showButton.enabled = NO;
-    self.showOnlyDown.enabled = NO;
     self.filterField.enabled = NO;
     self.modeSelector.enabled = NO;
     self.startDatePicker.enabled = NO;
     self.endDatePicker.enabled = NO;
+    
+    self.progressIndicator.hidden = NO;
+    [self.progressIndicator startAnimation:0];
 
 }
 
 - (void) enableControls
 {
     self.showButton.enabled = YES;
-    self.showOnlyDown.enabled = YES;
     self.filterField.enabled = YES;
     self.modeSelector.enabled = YES;
     self.startDatePicker.enabled = YES;
     self.endDatePicker.enabled = YES;
+    
+    self.progressIndicator.hidden = YES;
+    [self.progressIndicator stopAnimation:0];
 }
 
 - (IBAction)selectMode:(NSSegmentedControl *)sender {
@@ -204,8 +208,8 @@
     self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Requesting data from url %@", [self getCurrentTimeString], ApiUrl];
     
     myConnection.delegate = self;
-    //myConnection.UserLogin = UserLogin;
-    //myConnection.UserPassword = UserPassword;
+    myConnection.UserLogin = UserLogin;
+    myConnection.UserPassword = UserPassword;
 
     [myConnection getURL:url];
 
@@ -530,6 +534,7 @@
 {
     [self.refreshTimer invalidate];
 }
+
 
 
 #pragma mark - Delegate methods

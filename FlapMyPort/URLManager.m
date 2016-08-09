@@ -68,7 +68,8 @@
 {
     if (challenge.previousFailureCount == 0)
     {
-        NSURLCredentialPersistence persistence = NSURLCredentialPersistenceForSession;
+        NSURLCredentialPersistence persistence = NSURLCredentialPersistenceNone;
+        
         NSURLCredential *credential = [NSURLCredential credentialWithUser:self.UserLogin password:self.UserPassword persistence:persistence];
         completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
     }
