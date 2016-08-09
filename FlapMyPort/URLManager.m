@@ -35,6 +35,8 @@
 
 - (void) getURL: (NSString *) urlString
 {
+    self.data = [[NSMutableData alloc] init];
+    
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     self.task = [self.session dataTaskWithRequest:request];
@@ -45,7 +47,21 @@
           dataTask:(NSURLSessionDataTask *)dataTask
     didReceiveData:(NSData *)data
 {
-    [delegate refresh:data];
+
+    [self.data appendData:data];
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{
+
+    if(error)
+    {
+        [delegate connectionError:error];
+    }
+    else
+    {
+        [delegate refresh:self.data];
+    }
 }
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler

@@ -21,7 +21,7 @@
 @property (nonatomic,strong) NSURLSessionDataTask *task;
 
 @property (nonatomic, weak) id delegate;
-@property (nonatomic, weak) NSData *data;
+@property (nonatomic, strong) NSMutableData *data;
 
 @property (nonatomic, weak) NSString *UserLogin;
 @property (nonatomic, weak) NSString *UserPassword;

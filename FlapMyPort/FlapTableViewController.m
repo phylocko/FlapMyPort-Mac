@@ -354,10 +354,15 @@
 {
 
     NSDictionary *flap = [flapList objectAtIndex:row];
-    NSDictionary *port = [flap objectForKey:@"port"];
 
     NSString *colID = tableColumn.identifier;
 
+    
+    
+    
+
+    // === CHART ================================================================================================
+    
     if ([colID isEqualToString:@"chart"])
     {
         ChartCell *cell = [tableView makeViewWithIdentifier:[colID stringByAppendingString:@"Cell"] owner:self];
@@ -371,12 +376,12 @@
             NSString *startDateTxt = [formatter stringFromDate:startDate];
             NSString *endDateTxt = [formatter stringFromDate:endDate];
             
-            urlString = [NSString stringWithFormat:@"%@/?ifindex=%@&flapchart&host=%@&start=%@&end=%@", ApiUrl, [port valueForKey:@"ifIndex"], [flap valueForKey:@"ipaddress"], startDateTxt, endDateTxt];
+            urlString = [NSString stringWithFormat:@"%@/?ifindex=%@&flapchart&host=%@&start=%@&end=%@", ApiUrl, [flap valueForKey:@"ifIndex"], [flap valueForKey:@"ipaddress"], startDateTxt, endDateTxt];
             urlString = [urlString stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         }
         else
         {
-            urlString = [NSString stringWithFormat:@"%@/?ifindex=%@&flapchart&host=%@&interval=%@", ApiUrl, [port valueForKey:@"ifIndex"], [flap valueForKey:@"ipaddress"], interval];
+            urlString = [NSString stringWithFormat:@"%@/?ifindex=%@&flapchart&host=%@&interval=%@", ApiUrl, [flap valueForKey:@"ifIndex"], [flap valueForKey:@"ipaddress"], interval];
         }
 
  
@@ -404,80 +409,93 @@
         return cell;
     }
 
-    NSTableCellView *cell = [tableView makeViewWithIdentifier:[colID stringByAppendingString:@"Cell"] owner:self];
 
     
-    if ([colID isEqualToString:@"icon"])
-    {
-        // result.textField.stringValue = [flap valueForKey:@"name"];
-        return cell;
-    }
+    
+    
+    
+    NSTableCellView *cell = [tableView makeViewWithIdentifier:[colID stringByAppendingString:@"Cell"] owner:self];
+
+    // === HOST ================================================================================================
 
     if ([colID isEqualToString:@"hostname"])
     {
-        if([[flap valueForKey:@"name"] isKindOfClass:[NSNull class]])
-        {
-            cell.textField.stringValue = [flap valueForKey:@"ipaddress"];
-        }
-        else
-        {
-            cell.textField.stringValue = [flap valueForKey:@"name"];
-        }
+        NSString *ipaddress = [flap objectForKey:@"ipaddress"];
+        NSString *hostname = [flap objectForKey:@"hostname"];
+
+        cell.textField.stringValue = hostname;
+        if([hostname isKindOfClass:[NSNull class]]) cell.textField.stringValue = ipaddress;
         return cell;
     }
-    
+
+    // === INTERFACE ================================================================================================
+
     if ([colID isEqualToString:@"interface"])
     {
-        if([[port valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
-        {
-            cell.textField.textColor = [NSColor colorWithSRGBRed:0.5f green:0.8f blue:0.4f alpha:1.0f];
-        }
-        else
-        {
-            cell.textField.textColor = [NSColor colorWithSRGBRed:0.9f green:0.5f blue:0.5f alpha:1.0f];
-        }
+        NSString *ifName = [flap objectForKey:@"ifName"];
+        NSString *ifAlias = [flap objectForKey:@"ifAlias"];
+
+        cell.textField.stringValue = ifName;
         
-        if ( [[port valueForKey:@"ifAlias"] isEqualToString:@""] )
+        if(![ifAlias isKindOfClass:[NSNull class]])
         {
-            cell.textField.stringValue = [NSString  stringWithFormat:@"%@", [port valueForKey:@"ifName"]];
+            if (![ifAlias isEqualToString:@""])
+            {
+                cell.textField.stringValue = [NSString stringWithFormat:@"%@ — \t%@", ifName, ifAlias];
+            }
         }
-        else
-        {
-            cell.textField.stringValue = [NSString  stringWithFormat:@"%@ (%@)", [port valueForKey:@"ifName"], [port valueForKey:@"ifAlias"]];
-        }
-        
-        return cell;
     }
+
+
+    // === START DATE ================================================================================================
+
     
     if ([colID isEqualToString:@"startDate"])
     {
-        cell.textField.stringValue = [port valueForKey:@"firstFlapTime"];
+        cell.textField.stringValue = [flap valueForKey:@"firstFlapTime"];
         return cell;
     }
+
+    
+    // === END DATE ================================================================================================
+
     
     if ([colID isEqualToString:@"endDate"])
     {
-        cell.textField.stringValue = [port valueForKey:@"lastFlapTime"];
+        cell.textField.stringValue = [flap valueForKey:@"lastFlapTime"];
         return cell;
     }
+
+    
+    // === FLAP NUMBER ================================================================================================
+
     
     if ([colID isEqualToString:@"flapNumber"])
     {
-        cell.textField.stringValue = [port valueForKey:@"flapCount"];
+        cell.textField.stringValue = [flap valueForKey:@"flapCount"];
         return cell;
     }
+    
+    
+    // === STATUS ================================================================================================
+
     if ([colID isEqualToString:@"status"])
     {
-        cell.textField.stringValue = [port valueForKey:@"ifOperStatus"];
+        cell.textField.stringValue = [flap valueForKey:@"ifOperStatus"];
+
+        if( [[flap valueForKey:@"ifOperStatus"] isEqualToString:@""] )
+        {
+
+            if([[flap valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
+            {
+                cell.textField.textColor = [NSColor colorWithSRGBRed:0.5f green:0.8f blue:0.4f alpha:1.0f];
+            }
+            else
+            {
+                cell.textField.textColor = [NSColor colorWithSRGBRed:0.9f green:0.5f blue:0.5f alpha:1.0f];
+            }
+        }
         
-        if([[port valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
-        {
-            cell.textField.textColor = [NSColor colorWithSRGBRed:0.5f green:0.8f blue:0.4f alpha:1.0f];
-        }
-        else
-        {
-            cell.textField.textColor = [NSColor colorWithSRGBRed:0.9f green:0.5f blue:0.5f alpha:1.0f];
-        }
         return cell;
     }
     
@@ -524,12 +542,18 @@
     if(data != nil)
     {
         [flapList removeAllObjects];
-
-        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        
+        NSError *dataError = [NSError alloc];
+        
+        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&dataError];
 
         if(!response)
         {
-            self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server %@", [self getCurrentTimeString], ApiUrl];
+            self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server: %@", [self getCurrentTimeString], dataError];
+            [self.tableView reloadData];
+            [[NSApp dockTile] setBadgeLabel:@"❕"];
+            [NSApp requestUserAttention: NSCriticalRequest];
+            [[NSSound soundNamed:@"Basso"] play];
             [self enableControls];
             return;
         }
@@ -541,13 +565,84 @@
         {
             oldestFlapID = [params objectForKey:@"oldestFlapID"];
         }
-        for (id  host in hosts)
+        
+        for (NSDictionary *host in hosts)
         {
-
-            for (id port in [host objectForKey:@"ports"])
+            if (host)
             {
-                NSDictionary *item = @{@"name":[host objectForKey:@"name"], @"ipaddress":[host objectForKey:@"ipaddress"], @"port":port};
-                [flapList addObject:item];
+                NSString *ipaddress = [host objectForKey:@"ipaddress"];
+                
+                if(ipaddress)
+                {
+                    NSArray *ports = [host objectForKey:@"ports"];
+                    NSString *ipaddress = [host objectForKey:@"ipaddress"];
+                    NSString *hostname = [host objectForKey:@"name"];
+                    
+                    if(!ipaddress)
+                    {
+                        ipaddress = @"";
+                    }
+                    
+                    if(!hostname)
+                    {
+                        hostname = ipaddress;
+                    }
+                    
+                    
+                    if(ports)
+                    {
+                        for (NSDictionary *port in ports)
+                        {
+                            // Object for adding to flapList
+                            NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+                            
+                            [item setObject:ipaddress forKey:@"ipaddress"];
+                            
+                            [item setObject:hostname forKey:@"hostname"];
+                            
+                            // ifAlias
+                            [item setObject:@"" forKey:@"ifAlias"];
+                            NSString *ifAlias = [port objectForKey:@"ifAlias"];
+                            if(ifAlias) [item setObject:ifAlias forKey:@"ifAlias"];
+
+                            
+                            // ifName
+                            [item setObject:@"" forKey:@"ifName"];
+                            NSString *ifName = [port objectForKey:@"ifName"];
+                            if(ifName) [item setObject:ifName forKey:@"ifName"];
+
+                            
+                            // ifOperStatus
+                            [item setObject:@"" forKey:@"ifOperStatus"];
+                            NSString *ifOperStatus = [port objectForKey:@"ifOperStatus"];
+                            if(ifOperStatus) [item setObject:ifOperStatus forKey:@"ifOperStatus"];
+
+                            
+                            // ifIndex
+                            [item setObject:@"" forKey:@"ifIndex"];
+                            NSString *ifIndex = [port objectForKey:@"ifIndex"];
+                            if(ifIndex) [item setObject:ifIndex forKey:@"ifIndex"];
+
+                            // flapCount
+                            [item setObject:@"" forKey:@"flapCount"];
+                            NSString *flapCount = [port objectForKey:@"flapCount"];
+                            if(flapCount) [item setObject:flapCount forKey:@"flapCount"];
+                            
+                            // firstFlapTime
+                            [item setObject:@"" forKey:@"firstFlapTime"];
+                            NSString *firstFlapTime = [port objectForKey:@"firstFlapTime"];
+                            if(firstFlapTime) [item setObject:firstFlapTime forKey:@"firstFlapTime"];
+                            
+                            // lastFlapTime
+                            [item setObject:@"" forKey:@"lastFlapTime"];
+                            NSString *lastFlapTime = [port objectForKey:@"lastFlapTime"];
+                            if(lastFlapTime) [item setObject:lastFlapTime forKey:@"lastFlapTime"];
+                            
+                            [flapList addObject:item];
+                        }
+                        
+                    }
+                }
             }
         }
     }
