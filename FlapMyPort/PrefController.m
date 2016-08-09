@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    myConnection = [URLManager sharedInstance];
+    myConnection = [[URLManager alloc] init];
     [myConnection createSession];
     
     [self pullData];

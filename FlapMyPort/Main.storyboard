@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IbU-AC-3XV">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IbU-AC-3XV">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +22,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <segue destination="X5v-2r-ecl" kind="show" id="f7M-ro-hTe"/>
+                                                <segue destination="X5v-2r-ecl" kind="modal" id="f7M-ro-hTe"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -315,7 +315,7 @@ DQ
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RHs-zE-CNA">
+                            <datePicker verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHs-zE-CNA">
                                 <rect key="frame" x="417" y="412" width="158" height="27"/>
                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" id="TF4-BE-neH">
                                     <font key="font" metaFont="system"/>
@@ -330,7 +330,7 @@ DQ
                                     <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
                                 </datePickerCell>
                             </datePicker>
-                            <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5E-au-icx">
+                            <datePicker verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P5E-au-icx">
                                 <rect key="frame" x="578" y="412" width="158" height="27"/>
                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" id="upR-gc-fmJ">
                                     <font key="font" metaFont="system"/>
@@ -372,7 +372,7 @@ DQ
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="secondarySelectedControlColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="hostname" width="207.5" minWidth="40" maxWidth="350" id="1YV-1d-XTT" userLabel="Hostname Column">
+                                                <tableColumn identifier="hostname" width="206.5" minWidth="40" maxWidth="350" id="1YV-1d-XTT" userLabel="Hostname Column">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Hostname">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -408,7 +408,7 @@ DQ
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="interface" width="309" minWidth="100" maxWidth="360" id="XDU-GG-MtG" userLabel="Interface Column">
+                                                <tableColumn identifier="interface" width="308" minWidth="100" maxWidth="360" id="XDU-GG-MtG" userLabel="Interface Column">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Interface">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -425,7 +425,7 @@ DQ
                                                             <rect key="frame" x="211.5" y="1" width="309" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Bfv-Dx-Ivf">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bfv-Dx-Ivf">
                                                                     <rect key="frame" x="-2" y="9" width="313" height="19"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="12" id="Hxx-Bf-o90">
                                                                         <font key="font" size="13" name="HelveticaNeue"/>
