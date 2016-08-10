@@ -10,16 +10,17 @@
 #import "CheckBoxTableCell.h"
 #import "ChartCell.h"
 
-@interface FlapTableViewController () <URLManagerDelegate>
+@interface FlapTableViewController () <URLManagerDelegate, NSTextFieldDelegate>
 {
     NSMutableArray	*flapList;
+    NSMutableArray  *flapListFiltered;
     URLManager		*myConnection;
     unsigned long   eldestFlapAtLastUpdate;
 
     NSDate          *startDate;
     NSDate          *endDate;
     NSString        *interval;
-    NSString        *filter;
+    // NSString        *filter;
     NSArray         *WorkModes;
     NSString        *WorkMode; // Will be @"1MIN", ,@"10MINS", @"1HOUR", @"1HOUR", @"MANUAL"
     BOOL            autoRefresh;
@@ -40,8 +41,8 @@
 
 
 - (void)viewDidLoad {
-    
-    [self.view.window setDelegate:self];
+
+    self.filterField.delegate = self;
     
     oldestFlapID = @"0";
     lastOldestFlapID = @"0";
@@ -61,6 +62,7 @@
     
     
     flapList = [[NSMutableArray alloc] init];
+    flapListFiltered = [[NSMutableArray alloc] init];
     
     [self disableControls];
 
@@ -187,7 +189,7 @@
     {
         [self noUrlError];
         NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:[NSString stringWithFormat:@"You have no URL configured. Please open Preferences and type the URL."]];
+        [alert setMessageText:[NSString stringWithFormat:@"You have no API URL configured. Please open Preferences and type the URL."]];
         [alert runModal];
         return;
     }
@@ -356,7 +358,7 @@
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return flapList.count;
+    return flapListFiltered.count;
     return 0;
 }
 
@@ -364,7 +366,7 @@
 - (NSView *) tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 
-    NSDictionary *flap = [flapList objectAtIndex:row];
+    NSDictionary *flap = [flapListFiltered objectAtIndex:row];
 
     NSString *colID = tableColumn.identifier;
 
@@ -516,6 +518,71 @@
 
 }
 
+#pragma mark - TextField Delegate Methods
+
+- (void)controlTextDidChange:(NSNotification *) obj
+{
+    if (obj.object == self.filterField)
+    {
+        [self applyFilterWithString:self.filterField.stringValue];
+    }
+}
+
+-(void)applyFilterWithString:(NSString*) filterString {
+
+    [flapListFiltered removeAllObjects];
+    
+    if (filterString.length > 0)
+    {
+        for(NSDictionary *flap in flapList)
+        {
+            // Checking ifAlias
+            NSString *ifAlias = [flap objectForKey:@"ifAlias"];
+            if(![ifAlias isKindOfClass:[NSNull class]])
+            {
+                if( [ifAlias containsString:filterString] )
+                {
+                    [flapListFiltered addObject:flap];
+                    continue;
+                }
+            }
+
+            // Checking ifAlias
+            NSString *ifName = [flap objectForKey:@"ifName"];
+            if(![ifName isKindOfClass:[NSNull class]])
+            {
+                if( [ifName containsString:filterString] )
+                {
+                    [flapListFiltered addObject:flap];
+                    continue;
+                }
+            }
+            
+            
+            
+            // Checking ifAlias
+            NSString *hostname = [flap objectForKey:@"hostname"];
+            if(![hostname isKindOfClass:[NSNull class]])
+            {
+                if( [hostname containsString:filterString] )
+                {
+                    [flapListFiltered addObject:flap];
+                    continue;
+                }
+            }
+
+            
+        }
+
+    }
+    else
+    {
+        flapListFiltered = [NSMutableArray arrayWithArray:flapList];
+    }
+
+    [self.tableView reloadData];
+}
+
 #pragma mark - Buttons
 - (IBAction)showButtonPressed:(NSButton *)sender {
     
@@ -548,6 +615,7 @@
 - (void) refresh: (NSData *) data {
     
     [flapList removeAllObjects];
+    [flapListFiltered removeAllObjects];
     
     [[NSApp dockTile] setBadgeLabel:@""];
     
@@ -662,6 +730,9 @@
             }
         }
     }
+
+    // Copy FlapList to FlapListFiltered
+    flapListFiltered = [NSMutableArray arrayWithArray:flapList];
     
     [self.tableView reloadData];
     
