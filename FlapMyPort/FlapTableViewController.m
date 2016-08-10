@@ -347,12 +347,19 @@
 
 
 #pragma mark - TableView Methods
+-(void)tableView:(NSTableView *)mtableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
+{
+    [flapList sortUsingDescriptors: [mtableView sortDescriptors]];
+    [self.tableView reloadData];
+}
+
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView
 {
     return flapList.count;
     return 0;
 }
+
 
 - (NSView *) tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
@@ -689,8 +696,6 @@
     {
         self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — %lu rows", [self getCurrentTimeString], (unsigned long)[flapList count]];
     }
-    
-    NSLog(@"%@, %@", oldestFlapID, lastOldestFlapID);
 }
 
 
