@@ -351,7 +351,7 @@
 #pragma mark - TableView Methods
 -(void)tableView:(NSTableView *)mtableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
 {
-    [flapList sortUsingDescriptors: [mtableView sortDescriptors]];
+    [flapListFiltered sortUsingDescriptors: [mtableView sortDescriptors]];
     [self.tableView reloadData];
 }
 
