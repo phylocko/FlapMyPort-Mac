@@ -10,7 +10,7 @@
 #import "CheckBoxTableCell.h"
 #import "ChartCell.h"
 
-@interface FlapTableViewController () <URLManagerDelegate, NSWindowDelegate>
+@interface FlapTableViewController () <URLManagerDelegate>
 {
     NSMutableArray	*flapList;
     URLManager		*myConnection;
@@ -23,8 +23,8 @@
     NSArray         *WorkModes;
     NSString        *WorkMode; // Will be @"1MIN", ,@"10MINS", @"1HOUR", @"1HOUR", @"MANUAL"
     BOOL            autoRefresh;
-    NSNumber        *oldestFlapID;
-    NSNumber        *lastOldestFlapID;
+    NSString        *oldestFlapID;
+    NSString        *lastOldestFlapID;
     NSUserDefaults  *config;
     NSString        *ApiUrl;
     
@@ -43,8 +43,8 @@
     
     [self.view.window setDelegate:self];
     
-    oldestFlapID = 0;
-    lastOldestFlapID = 0;
+    oldestFlapID = @"0";
+    lastOldestFlapID = @"0";
     
     WorkModes = @[@"1MIN" ,@"10MIN", @"1HOUR", @"INTERVAL", @"FROM"];
     
@@ -445,7 +445,7 @@
         {
             if (![ifAlias isEqualToString:@""])
             {
-                cell.textField.stringValue = [NSString stringWithFormat:@"%@ — \t%@", ifName, ifAlias];
+                cell.textField.stringValue = [NSString stringWithFormat:@"%@ — %@", ifName, ifAlias];
             }
         }
     }
@@ -566,9 +566,13 @@
         NSArray *hosts = [response objectForKey:@"hosts"];
         NSDictionary *params = [response objectForKey:@"params"];
 
+        
         if(!([params objectForKey:@"oldestFlapID"] == nil))
         {
-            oldestFlapID = [params objectForKey:@"oldestFlapID"];
+            if([[params objectForKey:@"oldestFlapID"] integerValue] > [lastOldestFlapID integerValue])
+            {
+                oldestFlapID = [params objectForKey:@"oldestFlapID"];
+            }
         }
         
         for (NSDictionary *host in hosts)
@@ -685,6 +689,8 @@
     {
         self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — %lu rows", [self getCurrentTimeString], (unsigned long)[flapList count]];
     }
+    
+    NSLog(@"%@, %@", oldestFlapID, lastOldestFlapID);
 }
 
 
