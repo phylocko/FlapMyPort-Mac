@@ -457,6 +457,16 @@
                 cell.textField.stringValue = [NSString stringWithFormat:@"%@ — %@", ifName, ifAlias];
             }
         }
+        
+        // Text color
+        if([[flap valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
+        {
+            cell.textField.textColor = [NSColor colorWithSRGBRed:0.5f green:0.8f blue:0.4f alpha:1.0f];
+        }
+        else
+        {
+            cell.textField.textColor = [NSColor colorWithSRGBRed:0.9f green:0.5f blue:0.5f alpha:1.0f];
+        }
     }
 
 
@@ -496,19 +506,15 @@
     {
         cell.textField.stringValue = [flap valueForKey:@"ifOperStatus"];
 
-        if( [[flap valueForKey:@"ifOperStatus"] isEqualToString:@""] )
+        if([[flap valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
         {
-
-            if([[flap valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
-            {
-                cell.textField.textColor = [NSColor colorWithSRGBRed:0.5f green:0.8f blue:0.4f alpha:1.0f];
-            }
-            else
-            {
-                cell.textField.textColor = [NSColor colorWithSRGBRed:0.9f green:0.5f blue:0.5f alpha:1.0f];
-            }
+            cell.textField.textColor = [NSColor colorWithSRGBRed:0.5f green:0.8f blue:0.4f alpha:1.0f];
         }
-        
+        else
+        {
+            cell.textField.textColor = [NSColor colorWithSRGBRed:0.9f green:0.5f blue:0.5f alpha:1.0f];
+        }
+
         return cell;
     }
     
