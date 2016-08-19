@@ -30,6 +30,4 @@
 - (void) createSession;
 - (void) getURL: (NSString *) url;
 
-// Delegate's methods
-
 @end

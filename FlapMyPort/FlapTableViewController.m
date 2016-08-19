@@ -397,28 +397,35 @@
             urlString = [NSString stringWithFormat:@"%@/?ifindex=%@&flapchart&host=%@&interval=%@", ApiUrl, [flap valueForKey:@"ifIndex"], [flap valueForKey:@"ipaddress"], interval];
         }
 
- 
-        
-        NSURL *url = [NSURL URLWithString:urlString];
-        
+        if([[flap valueForKey:@"image"] isKindOfClass:[NSImage class]])
+        {
+            cell.chartImage.image = [flap valueForKey:@"image"];
+        }
+        else
+        {
 
-        NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
         
-        [req setValue:[self getCredentials] forHTTPHeaderField:@"Authorization"];
-
-        NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            
-            if (data) {
-                NSImage *image = [[NSImage alloc] initWithData:data];
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        cell.chartImage.image = image;
-                    });
+            NSURL *url = [NSURL URLWithString:urlString];
+            NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
+            [req setValue:[self getCredentials] forHTTPHeaderField:@"Authorization"];
+            NSURLSessionTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                
+                if (data) {
+                    NSImage *image = [[NSImage alloc] initWithData:data];
+                    if (image) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [flap setValue:image forKey:@"image"];
+                            cell.chartImage.image = image;
+                        });
+                    }
                 }
-            }
-        }];
-        [task resume];
+            }];
 
+            [task resume];
+      }
+
+        
+        
         return cell;
     }
 

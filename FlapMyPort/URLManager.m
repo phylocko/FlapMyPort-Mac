@@ -48,8 +48,6 @@
           dataTask:(NSURLSessionDataTask *)dataTask
     didReceiveData:(NSData *)data
 {
-
-    NSLog(@"Data: %@", [data description]);
     [self.data appendData:data];
 }
 
