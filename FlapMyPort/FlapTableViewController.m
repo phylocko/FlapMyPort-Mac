@@ -31,7 +31,7 @@
     
     NSString        *UserLogin;
     NSString        *UserPassword;
-
+    
 }
 
 @end
@@ -635,7 +635,7 @@
 
         if(!response)
         {
-            self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server: %@", [self getCurrentTimeString], dataError];
+            self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server: %@", [self getCurrentTimeString], [dataError localizedDescription] ];
             [self.tableView reloadData];
             [[NSApp dockTile] setBadgeLabel:@"❕"];
             [NSApp requestUserAttention: NSCriticalRequest];
@@ -757,7 +757,7 @@
             [sound play];
         }
     }
-    
+
     lastOldestFlapID = oldestFlapID;
 
     if(autoRefresh == YES)
@@ -778,21 +778,22 @@
 
 - (void) connectionError: (NSError *) error {
     
-    NSString *myError = [error domain];
+    // NSString *myError = [error domain];
 
-    self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Connection error: %@", [self getCurrentTimeString], myError];
-    
+    NSLog(@"%@", [error localizedDescription]);
+    self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Connection error: %@", [self getCurrentTimeString], [error localizedDescription] ];
+
     [[NSApp dockTile] setBadgeLabel:@"❕"];
     [NSApp requestUserAttention: NSCriticalRequest];
     [[NSSound soundNamed:@"Basso"] play];
-    
+
     [self enableControls];
-    
+
     if(autoRefresh == YES)
     {
         [self activateTimer];
     }
-  
+
 }
 
 @end

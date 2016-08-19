@@ -30,6 +30,7 @@
     session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]
                                             delegate:self
                                        delegateQueue:[NSOperationQueue mainQueue]];
+    
     self.session = session;
 }
 
@@ -48,6 +49,7 @@
     didReceiveData:(NSData *)data
 {
 
+    NSLog(@"Data: %@", [data description]);
     [self.data appendData:data];
 }
 
@@ -64,8 +66,15 @@
     }
 }
 
+
+
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler
 {
+  
+    NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+    completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
+    
+    
     if (challenge.previousFailureCount == 0)
     {
         NSURLCredentialPersistence persistence = NSURLCredentialPersistenceNone;
