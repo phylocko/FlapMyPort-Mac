@@ -824,7 +824,7 @@
     
     // NSString *myError = [error domain];
 
-    NSLog(@"%@", [error localizedDescription]);
+    // NSLog(@"%@", [error localizedDescription]);
     self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Connection error: %@", [self getCurrentTimeString], [error localizedDescription] ];
 
     [[NSApp dockTile] setBadgeLabel:@"❕"];
