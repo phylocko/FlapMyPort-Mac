@@ -20,7 +20,6 @@
     NSDate          *startDate;
     NSDate          *endDate;
     NSString        *interval;
-    // NSString        *filter;
     NSArray         *WorkModes;
     NSString        *WorkMode; // Will be @"1MIN", ,@"10MINS", @"1HOUR", @"1HOUR", @"MANUAL"
     BOOL            autoRefresh;
@@ -41,6 +40,19 @@
 
 
 - (void)viewDidLoad {
+    
+    config = [NSUserDefaults standardUserDefaults];
+    
+    if([self apiIsDefault] == YES)
+    {
+        [self showAlert:@"You have VirtualAPI link configured as your API URL, so you are seeing fake data.\r\nPlease open Preferences and type your URL." withTitle:@"No URL Configured"];
+    }
+    
+    if ([self apiUrlExists] == NO)
+    {
+        [self showAlert:@"You have no API URL configured so we're going to use VirtualAPI. Please open Preferences and type your URL." withTitle:@"No URL Configured"];
+
+    }
 
     self.filterField.delegate = self;
     
@@ -147,12 +159,17 @@
 
 - (void) pullConfig
 {
-    config = [NSUserDefaults standardUserDefaults];
+
+    if( [self apiUrlExists] == NO )
+    {
+        [self setDefaultApiUrl];
+    }
     
     if([config valueForKey:@"UserLogin"] == nil)
     {
         [config setObject:@"" forKey:@"UserLogin"];
     }
+
     if([config valueForKey:@"UserPassword"] == nil)
     {
         [config setObject:@"" forKey:@"UserPassword"];
@@ -168,14 +185,43 @@
     
 }
 
-- (BOOL) noUrl
+- (BOOL) apiUrlExists
 {
-    return [[config valueForKey:@"ApiUrl"] isEqualToString:@""];
+    if([config valueForKey:@"ApiUrl"] == nil)
+    {
+        return NO;
+    }
+
+    if([[config valueForKey:@"ApiUrl"] isEqualToString:@""])
+    {
+        return NO;
+    }
+    
+    return YES;
 }
-- (void) noUrlError
+
+- (void) setDefaultApiUrl
 {
-    self.bottomLabel.stringValue = @"You have no URL configured. Please open Preferences and type the URL.";
+    [config setObject:@"http://virtualapi.flapmyport.com" forKey:@"ApiUrl"];
+}
+
+- (BOOL) apiIsDefault
+{
+    if( [[config valueForKey:@"ApiUrl"] isEqualToString:@"http://virtualapi.flapmyport.com"])
+    {
+        return YES;
+    }
+
+    return NO;
+}
+
+- (void) showAlert: (NSString *) message withTitle: (NSString *) title
+{
+    self.bottomLabel.stringValue = title;
     [self enableControls];
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText: message];
+    [alert runModal];
     
 }
 
@@ -184,15 +230,6 @@
     [self pullConfig];
 
     [self deactivateTimer];
-    
-    if ([self noUrl])
-    {
-        [self noUrlError];
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:[NSString stringWithFormat:@"You have no API URL configured. Please open Preferences and type the URL."]];
-        [alert runModal];
-        return;
-    }
     
     NSString *url = [[NSString alloc] init];
 
