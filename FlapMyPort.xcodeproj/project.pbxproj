@@ -21,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F51B9B931D6C806D000BF934 /* FlapMyPort.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlapMyPort.entitlements; sourceTree = "<group>"; };
 		F525618E1D58A43900266535 /* FlapMyPort.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlapMyPort.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F52561911D58A43900266535 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F52561921D58A43900266535 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 		F52561901D58A43900266535 /* FlapMyPort */ = {
 			isa = PBXGroup;
 			children = (
+				F51B9B931D6C806D000BF934 /* FlapMyPort.entitlements */,
 				F52561911D58A43900266535 /* AppDelegate.h */,
 				F52561921D58A43900266535 /* AppDelegate.m */,
 				F52561971D58A43900266535 /* ViewController.h */,
@@ -151,6 +153,11 @@
 				TargetAttributes = {
 					F525618D1D58A43900266535 = {
 						CreatedOnToolsVersion = 7.3.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -289,6 +296,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FlapMyPort/FlapMyPort.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = FlapMyPort/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -301,6 +309,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FlapMyPort/FlapMyPort.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = FlapMyPort/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
