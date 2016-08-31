@@ -383,6 +383,64 @@
     return readyString;
 }
 
+- (NSString *) getHostnameFromFlap: (NSDictionary *) flap
+{
+    NSString *ipaddress = [flap objectForKey:@"ipaddress"];
+    NSString *hostname = [flap objectForKey:@"hostname"];
+    
+    if([hostname isKindOfClass:[NSNull class]])
+    {
+        return ipaddress;
+    }
+    else
+    {
+        return hostname;
+    }
+}
+
+- (NSString *) getIfNameFromFlap: (NSDictionary *) flap
+{
+    NSString *ifName = [flap objectForKey:@"ifName"];
+    NSString *ifAlias = [flap objectForKey:@"ifAlias"];
+
+    
+    if(![ifAlias isKindOfClass:[NSNull class]])
+    {
+        if (![ifAlias isEqualToString:@""])
+        {
+            return [NSString stringWithFormat:@"%@ — %@", ifName, ifAlias];
+        }
+    }
+    
+    return [NSString stringWithFormat:@"%@", ifName];
+}
+
+- (void) copySelectedRows
+{
+    NSIndexSet *selectedRows = self.tableView.selectedRowIndexes;
+    
+    __block NSString *copyString = [[NSString alloc] init];
+    
+    [selectedRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSDictionary *flap = [flapListFiltered objectAtIndex:idx];
+        
+        NSString *appendingString = [[NSString alloc] initWithFormat:@"%@ \t%@ \t%@ \t%@ \t %@\r\n",
+                                     [self getHostnameFromFlap:flap],
+                                     [self getIfNameFromFlap:flap],
+                                     [flap objectForKey:@"firstFlapTime"],
+                                     [flap objectForKey:@"lastFlapTime"],
+                                     [flap objectForKey:@"ifOperStatus"]];
+        
+        copyString = [copyString stringByAppendingString:appendingString];
+        
+    }];
+    
+    [[NSPasteboard generalPasteboard] clearContents];
+    
+    [[NSPasteboard generalPasteboard] setString:copyString forType:NSStringPboardType];
+}
+
 
 
 #pragma mark - TableView Methods
@@ -477,11 +535,8 @@
 
     if ([colID isEqualToString:@"hostname"])
     {
-        NSString *ipaddress = [flap objectForKey:@"ipaddress"];
-        NSString *hostname = [flap objectForKey:@"hostname"];
-
-        cell.textField.stringValue = hostname;
-        if([hostname isKindOfClass:[NSNull class]]) cell.textField.stringValue = ipaddress;
+        
+        cell.textField.stringValue = [self getHostnameFromFlap: flap];
         return cell;
     }
 
@@ -489,6 +544,7 @@
 
     if ([colID isEqualToString:@"interface"])
     {
+        /*
         NSString *ifName = [flap objectForKey:@"ifName"];
         NSString *ifAlias = [flap objectForKey:@"ifAlias"];
 
@@ -501,6 +557,9 @@
                 cell.textField.stringValue = [NSString stringWithFormat:@"%@ — %@", ifName, ifAlias];
             }
         }
+        */
+        
+        cell.textField.stringValue = [self getIfNameFromFlap:flap];
         
         // Text color
         if([[flap valueForKey:@"ifOperStatus"] isEqualToString:@"up"])
@@ -642,6 +701,7 @@
 
     
 }
+
 
 - (IBAction)resetButtonPressed:(NSButton *)sender {
     
@@ -822,9 +882,6 @@
 
 - (void) connectionError: (NSError *) error {
     
-    // NSString *myError = [error domain];
-
-    // NSLog(@"%@", [error localizedDescription]);
     self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Connection error: %@", [self getCurrentTimeString], [error localizedDescription] ];
 
     [[NSApp dockTile] setBadgeLabel:@"❕"];
@@ -840,4 +897,16 @@
 
 }
 
+
+- (void)copy:(id)sender
+{
+
+    NSResponder *firstResponder;
+    
+    if (firstResponder == nil)
+    {
+        [self copySelectedRows];
+    }
+
+}
 @end

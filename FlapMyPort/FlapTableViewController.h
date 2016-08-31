@@ -49,8 +49,12 @@
 - (void) connectionError: (NSError *) error;
 - (NSString *) getCredentials;
 
+- (void)copy:(id)sender;
+
 - (IBAction)selectMode:(NSSegmentedControl *)sender;
 - (IBAction)showButtonPressed:(NSButton *)sender;
+- (IBAction)copySelectedRows;
+
 
 
 @end
