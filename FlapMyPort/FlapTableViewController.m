@@ -23,8 +23,8 @@
     NSArray         *WorkModes;
     NSString        *WorkMode; // Will be @"1MIN", ,@"10MINS", @"1HOUR", @"1HOUR", @"MANUAL"
     BOOL            autoRefresh;
-    NSString        *oldestFlapID;
-    NSString        *lastOldestFlapID;
+    NSInteger        oldestFlapID;
+    NSInteger        lastOldestFlapID;
     NSUserDefaults  *config;
     NSString        *ApiUrl;
     
@@ -41,6 +41,9 @@
 
 - (void)viewDidLoad {
     
+    oldestFlapID = 0;
+    lastOldestFlapID = 0;
+    
     config = [NSUserDefaults standardUserDefaults];
     
     if([self apiIsDefault] == YES)
@@ -55,10 +58,7 @@
     }
 
     self.filterField.delegate = self;
-    
-    oldestFlapID = @"0";
-    lastOldestFlapID = @"0";
-    
+
     WorkModes = @[@"1MIN" ,@"10MIN", @"1HOUR", @"INTERVAL", @"FROM"];
     
     [self changeWorkMode:2];
@@ -667,8 +667,7 @@
                 }
             }
             
-            
-            
+                        
             // Checking ifAlias
             NSString *hostname = [flap objectForKey:@"hostname"];
             if(![hostname isKindOfClass:[NSNull class]])
@@ -739,6 +738,8 @@
 
         if(!response)
         {
+            NSLog(@"Response: %@", response);
+            
             self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server: %@", [self getCurrentTimeString], [dataError localizedDescription] ];
             [self.tableView reloadData];
             [[NSApp dockTile] setBadgeLabel:@"❕"];
@@ -748,18 +749,34 @@
             return;
         }
         
+        
+        
         NSArray *hosts = [response objectForKey:@"hosts"];
         NSDictionary *params = [response objectForKey:@"params"];
 
         
         if(!([params objectForKey:@"oldestFlapID"] == nil))
         {
-            if([[params objectForKey:@"oldestFlapID"] integerValue] > [lastOldestFlapID integerValue])
+            oldestFlapID = [[params objectForKey:@"oldestFlapID"] integerValue];
+            if (oldestFlapID > lastOldestFlapID)
             {
-                oldestFlapID = [params objectForKey:@"oldestFlapID"];
+                [NSApp requestUserAttention:NSCriticalRequest];
+                
+                NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"linkdown" ofType:@"aif"];
+                
+                if(resourcePath)
+                {
+                    NSSound *sound = [[NSSound alloc] initWithContentsOfFile:resourcePath byReference:YES];
+                    [sound play];
+                }
+                
+                lastOldestFlapID = oldestFlapID;
             }
         }
         
+
+        
+
         for (NSDictionary *host in hosts)
         {
             if (host)
@@ -848,22 +865,12 @@
     
     [self enableControls];
     
-    if([oldestFlapID integerValue] > [lastOldestFlapID integerValue])
+    if (flapList.count > 0)
     {
-        [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%lu", (unsigned long)[flapList count]]];
-        [NSApp requestUserAttention:NSCriticalRequest];
-        
-        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"linkdown" ofType:@"aif"];
-        
-        if(resourcePath)
-        {
-            NSSound *sound = [[NSSound alloc] initWithContentsOfFile:resourcePath byReference:YES];
-            [sound play];
-        }
+        [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%lu", (long)flapList.count] ];
     }
 
-    lastOldestFlapID = oldestFlapID;
-
+    
     if(autoRefresh == YES)
     {
         [self activateTimer];
