@@ -32,8 +32,6 @@
 - (void) showDatePickers;
 - (void) setDatPickersValues;
 - (void) pullConfig;
-- (BOOL) noUrl;
-- (void) noUrlError;
 - (void) requestData;
 - (NSString *) prepareUrlWithInterval;
 - (NSString *) prepareUrlWithDates;

@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IbU-AC-3XV">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="IbU-AC-3XV">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -536,7 +537,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHs-zE-CNA">
-                                <rect key="frame" x="472" y="412" width="158" height="27"/>
+                                <rect key="frame" x="472" y="412" width="164" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" id="TF4-BE-neH">
                                     <font key="font" metaFont="system"/>
@@ -546,20 +547,6 @@ DQ
                                     <date key="minDate" timeIntervalSinceReferenceDate="378676800">
                                         <!--2012-12-31 20:00:00 +0000-->
                                     </date>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
-                                </datePickerCell>
-                            </datePicker>
-                            <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P5E-au-icx">
-                                <rect key="frame" x="633" y="412" width="158" height="27"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" id="upR-gc-fmJ">
-                                    <font key="font" metaFont="system"/>
-                                    <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
-                                        <!--1982-02-12 08:00:00 -0800-->
-                                        <timeZone key="timeZone" name="US/Pacific"/>
-                                    </calendarDate>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
@@ -588,7 +575,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowHeight="32" headerView="gOQ-y7-Cd1" viewBased="YES" id="jDi-6u-Akv">
-                                            <rect key="frame" x="0.0" y="0.0" width="1366" height="348"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1373" height="348"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -609,7 +596,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="hostnameCell" id="sfR-3R-3Lt">
-                                                            <rect key="frame" x="1" y="1" width="207" height="32"/>
+                                                            <rect key="frame" x="1" y="1" width="206.5" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="AWS-oQ-8Ln">
@@ -649,8 +636,8 @@ DQ
                                                             <rect key="frame" x="210.5" y="1" width="308" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bfv-Dx-Ivf">
-                                                                    <rect key="frame" x="-2" y="9" width="313" height="19"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Bfv-Dx-Ivf">
+                                                                    <rect key="frame" x="-2" y="9" width="312" height="19"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="12" id="Hxx-Bf-o90">
                                                                         <font key="font" size="13" name="HelveticaNeue"/>
                                                                         <color key="textColor" red="0.35040906698700752" green="0.65406013257575757" blue="0.36545832401532224" alpha="1" colorSpace="calibratedRGB"/>
@@ -669,9 +656,9 @@ DQ
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="startDate" width="186.5" minWidth="10" maxWidth="200" id="noU-tZ-eOo" userLabel="Date Start Column">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Start date">
-                                                        <font key="font" metaFont="smallSystem"/>
+                                                <tableColumn identifier="startDate" width="190" minWidth="10" maxWidth="200" id="noU-tZ-eOo" userLabel="Date Start Column">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="First Flap">
+                                                        <font key="font" metaFont="systemMedium" size="11"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
@@ -684,11 +671,11 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="startDateCell" id="4Gi-e1-e8l">
-                                                            <rect key="frame" x="521.5" y="1" width="187" height="32"/>
+                                                            <rect key="frame" x="521.5" y="1" width="190" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="oVA-Fq-2tz">
-                                                                    <rect key="frame" x="0.0" y="9" width="189" height="14"/>
+                                                                    <rect key="frame" x="0.0" y="9" width="192" height="14"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="cB4-F3-ydv">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -708,8 +695,8 @@ DQ
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="endDate" width="186.5" minWidth="10" maxWidth="200" id="9YR-C4-p3W" userLabel="Date End Column">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="End date">
+                                                <tableColumn identifier="endDate" width="192" minWidth="10" maxWidth="200" id="9YR-C4-p3W" userLabel="Date End Column">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Final Flap">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -723,11 +710,11 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="endDateCell" id="mea-2N-A2k">
-                                                            <rect key="frame" x="711" y="1" width="187" height="32"/>
+                                                            <rect key="frame" x="714.5" y="1" width="192" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Jl5-LL-Hwj">
-                                                                    <rect key="frame" x="-2" y="9" width="191" height="14"/>
+                                                                    <rect key="frame" x="-2" y="9" width="196" height="14"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="mPf-p4-0nw">
                                                                         <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -760,7 +747,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="chartCell" id="Zpf-wv-PJc" customClass="ChartCell">
-                                                            <rect key="frame" x="900.5" y="1" width="318" height="17"/>
+                                                            <rect key="frame" x="909.5" y="1" width="318" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A5V-PI-iLg">
@@ -797,11 +784,11 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="flapNumberCell" id="q8T-Wj-xq4">
-                                                            <rect key="frame" x="1221.5" y="1" width="78" height="32"/>
+                                                            <rect key="frame" x="1230.5" y="1" width="77.5" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="8Vx-QY-duj">
-                                                                    <rect key="frame" x="4" y="6" width="70" height="20"/>
+                                                                    <rect key="frame" x="4" y="6" width="69" height="20"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="12" id="4xO-8r-1Ia">
                                                                         <font key="font" size="13" name="HelveticaNeue-Bold"/>
                                                                         <color key="textColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -835,7 +822,7 @@ DQ
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="statusCell" id="wJe-HI-l5o">
-                                                            <rect key="frame" x="1302" y="1" width="60" height="32"/>
+                                                            <rect key="frame" x="1311" y="1" width="60" height="32"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="yqR-9B-ThP">
@@ -866,8 +853,8 @@ DQ
                                         </tableView>
                                     </subviews>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="tsg-ZK-pwV">
-                                    <rect key="frame" x="1" y="355" width="1232" height="16"/>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="tsg-ZK-pwV">
+                                    <rect key="frame" x="1" y="355" width="1366" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="SGr-z0-GgL">
@@ -875,22 +862,36 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="gOQ-y7-Cd1">
-                                    <rect key="frame" x="0.0" y="0.0" width="1366" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1373" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
                             <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="UEE-Qv-vVI">
                                 <rect key="frame" x="7" y="5" width="16" height="16"/>
                             </progressIndicator>
-                            <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lp3-EW-fft">
+                            <searchField wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="145" translatesAutoresizingMaskIntoConstraints="NO" id="lp3-EW-fft">
                                 <rect key="frame" x="319" y="413" width="145" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="ajC-7b-l8e">
+                                <searchFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="ajC-7b-l8e">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </searchFieldCell>
                             </searchField>
+                            <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P5E-au-icx">
+                                <rect key="frame" x="644" y="412" width="161" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <datePickerCell key="cell" refusesFirstResponder="YES" alignment="left" id="upR-gc-fmJ">
+                                    <font key="font" metaFont="system"/>
+                                    <calendarDate key="date" timeIntervalSinceReferenceDate="-595929600" calendarFormat="%Y-%m-%d %H:%M:%S %z">
+                                        <!--1982-02-12 08:00:00 -0800-->
+                                        <timeZone key="timeZone" name="US/Pacific"/>
+                                    </calendarDate>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <datePickerElements key="datePickerElements" year="YES" month="YES" day="YES" hour="YES" minute="YES" second="YES"/>
+                                </datePickerCell>
+                            </datePicker>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="qZf-d2-fhF" secondAttribute="bottom" constant="6" id="2k3-Dw-5Cp"/>
