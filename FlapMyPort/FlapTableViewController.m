@@ -667,7 +667,7 @@
                 }
             }
             
-                        
+            
             // Checking ifAlias
             NSString *hostname = [flap objectForKey:@"hostname"];
             if(![hostname isKindOfClass:[NSNull class]])
@@ -719,7 +719,6 @@
 }
 
 
-
 #pragma mark - Delegate methods
 - (void) refresh: (NSData *) data {
     
@@ -738,7 +737,6 @@
 
         if(!response)
         {
-            NSLog(@"Response: %@", response);
             
             self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server: %@", [self getCurrentTimeString], [dataError localizedDescription] ];
             [self.tableView reloadData];
