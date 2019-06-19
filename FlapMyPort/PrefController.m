@@ -45,6 +45,7 @@
             
             self.statusLabel.stringValue= @"✅";
             self.statusLabel.hidden = NO;
+            [[NSApp dockTile] setBadgeLabel:@"✔️"];
 
             self.helperText.stringValue = @"This url is a correct url! Stored to config.";
             [self enableControls];

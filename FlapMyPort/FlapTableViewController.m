@@ -157,6 +157,10 @@
 }
 #pragma mark - My Methods
 
+- (NSString *)getEncodedFilterString {
+    return  [self.filterField.stringValue stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+}
+
 - (void) pullConfig
 {
 
@@ -273,7 +277,7 @@
         interval = @"3600";
     }
     
-    NSString *url = [NSString stringWithFormat:@"%@/?review&interval=%@&filter=%@", ApiUrl, interval, self.filterField.stringValue];
+    NSString *url = [NSString stringWithFormat:@"%@/?review&interval=%@&filter=%@", ApiUrl, interval, [self getEncodedFilterString]];
 
     return url;
 }
@@ -283,7 +287,7 @@
     NSDateFormatter *txtFormat = [[NSDateFormatter alloc] init];
     [txtFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/?review&start=%@&end=%@&filter=%@", ApiUrl, [txtFormat stringFromDate:startDate], [txtFormat stringFromDate:endDate], self.filterField.stringValue];
+    NSString *url = [NSString stringWithFormat:@"%@/?review&start=%@&end=%@&filter=%@", ApiUrl, [txtFormat stringFromDate:startDate], [txtFormat stringFromDate:endDate], [self getEncodedFilterString]];
 
     url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
@@ -423,9 +427,9 @@
     
     [selectedRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
         
-        NSDictionary *flap = [flapListFiltered objectAtIndex:idx];
+        NSDictionary *flap = [self->flapListFiltered objectAtIndex:idx];
         
-        NSString *appendingString = [[NSString alloc] initWithFormat:@"%@ \t%@ \t%@ \t%@ \t %@\r\n",
+        NSString *appendingString = [[NSString alloc] initWithFormat:@"%@\t%@\t%@ — %@\t%@\r\n",
                                      [self getHostnameFromFlap:flap],
                                      [self getIfNameFromFlap:flap],
                                      [flap objectForKey:@"firstFlapTime"],
@@ -631,6 +635,7 @@
 
 - (void)controlTextDidChange:(NSNotification *) obj
 {
+
     if (obj.object == self.filterField)
     {
         [self applyFilterWithString:self.filterField.stringValue];
@@ -638,56 +643,66 @@
 }
 
 -(void)applyFilterWithString:(NSString*) filterString {
-
-    [flapListFiltered removeAllObjects];
     
-    if (filterString.length > 0)
-    {
-        for(NSDictionary *flap in flapList)
-        {
-            // Checking ifAlias
-            NSString *ifAlias = [flap objectForKey:@"ifAlias"];
-            if(![ifAlias isKindOfClass:[NSNull class]])
-            {
-                if( [ifAlias containsString:filterString] )
-                {
-                    [flapListFiltered addObject:flap];
-                    continue;
-                }
-            }
+    flapListFiltered = [[NSMutableArray alloc] initWithArray:flapList];
+    
+    if (filterString.length == 0) {
+        [self.tableView reloadData];
+        return;
+    }
+    
+    NSArray *keyWords = [filterString componentsSeparatedByString:@" "];
+    
+    NSMutableArray *removingFlaps = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *flap in flapListFiltered) {
 
-            // Checking ifAlias
-            NSString *ifName = [flap objectForKey:@"ifName"];
-            if(![ifName isKindOfClass:[NSNull class]])
-            {
-                if( [ifName containsString:filterString] )
-                {
-                    [flapListFiltered addObject:flap];
-                    continue;
-                }
+        // Iterating over the keywords
+        for (NSString *keyWord in keyWords) {
+
+            if(!keyWord || keyWord.length == 0) {
+                continue;
             }
             
-            
-            // Checking ifAlias
-            NSString *hostname = [flap objectForKey:@"hostname"];
-            if(![hostname isKindOfClass:[NSNull class]])
-            {
-                if( [hostname containsString:filterString] )
-                {
-                    [flapListFiltered addObject:flap];
+            if([keyWord hasPrefix:@"!"]) {
+
+                // if flap mathes remove it
+                NSString *negativeKeyword = [keyWord substringFromIndex:1];
+                
+                if([[flap objectForKey:@"hostname"] containsString:negativeKeyword]) {
+                    [removingFlaps addObject:flap];
                     continue;
                 }
-            }
 
+                if([[flap objectForKey:@"ifName"] containsString:negativeKeyword]) {
+                    [removingFlaps addObject:flap];
+                    continue;
+                }
+                if([[flap objectForKey:@"ifAlias"] containsString:negativeKeyword]) {
+                    [removingFlaps addObject:flap];
+                    continue;
+                }
+
+            } else {
+
+                // if flap doesn't match — remove id
+                if([[flap objectForKey:@"hostname"] containsString:keyWord] ||
+                   [[flap objectForKey:@"ifName"] containsString:keyWord] ||
+                   [[flap objectForKey:@"ifAlias"] containsString:keyWord]) {
+                    continue;
+                } else {
+                    [removingFlaps addObject:flap];
+                }
+            }
             
         }
 
     }
-    else
-    {
-        flapListFiltered = [NSMutableArray arrayWithArray:flapList];
+    
+    for (NSDictionary *removingFlap in removingFlaps) {
+        [flapListFiltered removeObject:removingFlap];
     }
-
+    
     [self.tableView reloadData];
 }
 
@@ -747,11 +762,8 @@
             return;
         }
         
-        
-        
         NSArray *hosts = [response objectForKey:@"hosts"];
         NSDictionary *params = [response objectForKey:@"params"];
-
         
         if(!([params objectForKey:@"oldestFlapID"] == nil))
         {
@@ -772,11 +784,9 @@
             }
         }
         
-
-        
-
         for (NSDictionary *host in hosts)
         {
+            
             if (host)
             {
                 NSString *ipaddress = [host objectForKey:@"ipaddress"];
@@ -787,16 +797,9 @@
                     NSString *ipaddress = [host objectForKey:@"ipaddress"];
                     NSString *hostname = [host objectForKey:@"name"];
                     
-                    if(!ipaddress)
-                    {
-                        ipaddress = @"";
-                    }
-                    
-                    if(!hostname)
-                    {
+                    if([hostname length] == 0) {
                         hostname = ipaddress;
                     }
-                    
                     
                     if(ports)
                     {
@@ -809,29 +812,34 @@
                             
                             [item setObject:hostname forKey:@"hostname"];
                             
+                            // ifIndex
+                            [item setObject:@"" forKey:@"ifIndex"];
+                            NSString *ifIndex = [port objectForKey:@"ifIndex"];
+                            if(ifIndex) [item setObject:ifIndex forKey:@"ifIndex"];
+
+                            // ifName
+                            [item setObject:@"" forKey:@"ifName"];
+                            NSString *ifName = [port objectForKey:@"ifName"];
+                            if(ifName) {
+                                [item setObject:ifName forKey:@"ifName"];
+                                
+                                // Replace empty ifName with "ifIndex 1111" value
+                                if([ifName length] == 0) {
+                                    [item setObject:[@"ifIndex " stringByAppendingString:ifIndex] forKey:@"ifName"];
+                                }
+                            }
+
                             // ifAlias
                             [item setObject:@"" forKey:@"ifAlias"];
                             NSString *ifAlias = [port objectForKey:@"ifAlias"];
                             if(ifAlias) [item setObject:ifAlias forKey:@"ifAlias"];
 
-                            
-                            // ifName
-                            [item setObject:@"" forKey:@"ifName"];
-                            NSString *ifName = [port objectForKey:@"ifName"];
-                            if(ifName) [item setObject:ifName forKey:@"ifName"];
-
-                            
                             // ifOperStatus
                             [item setObject:@"" forKey:@"ifOperStatus"];
                             NSString *ifOperStatus = [port objectForKey:@"ifOperStatus"];
                             if(ifOperStatus) [item setObject:ifOperStatus forKey:@"ifOperStatus"];
 
                             
-                            // ifIndex
-                            [item setObject:@"" forKey:@"ifIndex"];
-                            NSString *ifIndex = [port objectForKey:@"ifIndex"];
-                            if(ifIndex) [item setObject:ifIndex forKey:@"ifIndex"];
-
                             // flapCount
                             [item setObject:@"" forKey:@"flapCount"];
                             NSString *flapCount = [port objectForKey:@"flapCount"];
