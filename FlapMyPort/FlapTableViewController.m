@@ -741,18 +741,15 @@
     [flapListFiltered removeAllObjects];
     
     [[NSApp dockTile] setBadgeLabel:@""];
-    
+
     if(data != nil)
     {
-        [flapList removeAllObjects];
-        
+
         NSError *dataError = [NSError alloc];
-        
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&dataError];
 
         if(!response)
         {
-            
             self.bottomLabel.stringValue = [NSString stringWithFormat:@"%@ — Wrong data received from server: %@", [self getCurrentTimeString], [dataError localizedDescription] ];
             [self.tableView reloadData];
             [[NSApp dockTile] setBadgeLabel:@"❕"];
@@ -796,10 +793,7 @@
                     NSArray *ports = [host objectForKey:@"ports"];
                     NSString *ipaddress = [host objectForKey:@"ipaddress"];
                     NSString *hostname = [host objectForKey:@"name"];
-                    
-                    if([hostname length] == 0) {
-                        hostname = ipaddress;
-                    }
+
                     
                     if(ports)
                     {
@@ -813,33 +807,32 @@
                             [item setObject:hostname forKey:@"hostname"];
                             
                             // ifIndex
-                            [item setObject:@"" forKey:@"ifIndex"];
                             NSString *ifIndex = [port objectForKey:@"ifIndex"];
-                            if(ifIndex) [item setObject:ifIndex forKey:@"ifIndex"];
+                            [item setObject:ifIndex forKey:@"ifIndex"];
 
                             // ifName
-                            [item setObject:@"" forKey:@"ifName"];
                             NSString *ifName = [port objectForKey:@"ifName"];
-                            if(ifName) {
-                                [item setObject:ifName forKey:@"ifName"];
-                                
-                                // Replace empty ifName with "ifIndex 1111" value
-                                if([ifName length] == 0) {
-                                    [item setObject:[@"ifIndex " stringByAppendingString:ifIndex] forKey:@"ifName"];
-                                }
+                            if([ifName isEqualTo:[NSNull null]]) {
+                                ifName = [@"ifIndex " stringByAppendingString:ifIndex];
+                            } else if([ifName isEqualToString:@""]) {
+                                ifName = @"\"\"";
+                            } else {
+                                ifName = [port objectForKey:@"ifName"];
                             }
+                            [item setObject:ifName forKey:@"ifName"];
 
                             // ifAlias
-                            [item setObject:@"" forKey:@"ifAlias"];
                             NSString *ifAlias = [port objectForKey:@"ifAlias"];
-                            if(ifAlias) [item setObject:ifAlias forKey:@"ifAlias"];
+                            if([ifAlias isEqualTo:[NSNull null]]) {
+                                ifAlias = @"";
+                            }
+                            [item setObject:ifAlias forKey:@"ifAlias"];
 
                             // ifOperStatus
                             [item setObject:@"" forKey:@"ifOperStatus"];
                             NSString *ifOperStatus = [port objectForKey:@"ifOperStatus"];
                             if(ifOperStatus) [item setObject:ifOperStatus forKey:@"ifOperStatus"];
 
-                            
                             // flapCount
                             [item setObject:@"" forKey:@"flapCount"];
                             NSString *flapCount = [port objectForKey:@"flapCount"];
