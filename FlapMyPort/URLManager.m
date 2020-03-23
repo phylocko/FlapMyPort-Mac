@@ -64,27 +64,21 @@
     }
 }
 
+- (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(nonnull NSURLAuthenticationChallenge *)challenge completionHandler:(nonnull void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
 
-- (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler
-{
-  
-    NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
-    completionHandler(NSURLSessionAuthChallengeUseCredential,credential);
-    
-    
-    if (challenge.previousFailureCount == 0)
-    {
-        NSURLCredentialPersistence persistence = NSURLCredentialPersistenceNone;
-        
-        NSURLCredential *credential = [NSURLCredential credentialWithUser:self.UserLogin password:self.UserPassword persistence:persistence];
-        completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
-    }
-    else
-    {
-        NSError *error = [[NSError alloc] initWithDomain:@"Wrong login or password. Check your preferences." code:0 userInfo:nil];
-        
-        [delegate connectionError:error];
-        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+    if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPBasic) {
+
+        if(challenge.previousFailureCount > 3) {
+            NSError *error = [[NSError alloc] initWithDomain:@"Wrong login or password. Check your preferences." code:0 userInfo:nil];
+            [delegate connectionError:error];
+            // completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
+
+        } else {
+            NSURLCredentialPersistence persistence = NSURLCredentialPersistenceNone;
+            NSURLCredential *credential = [NSURLCredential credentialWithUser:self.UserLogin password:self.UserPassword persistence:persistence];
+            completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+
+        }
     }
 }
 
