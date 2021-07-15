@@ -65,8 +65,8 @@
 }
 
 - (void) URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(nonnull NSURLAuthenticationChallenge *)challenge completionHandler:(nonnull void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
-
-    if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPBasic) {
+    
+    if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodHTTPBasic || challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
 
         if(challenge.previousFailureCount > 3) {
             NSError *error = [[NSError alloc] initWithDomain:@"Wrong login or password. Check your preferences." code:0 userInfo:nil];
